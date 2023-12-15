@@ -7,7 +7,15 @@ const { Schema } = mongoose;
 
 // Create a new Mongoose schema named 'userSchema'
 // Creates a new Mongoose schema named userSchema that defines the structure of a user document in the MongoDB collection. It includes fields like username, password, and accessToken, specifying their data types, validation rules, and default values.
-const userSchema = new Schema(
+
+// There will be one default admin user that will be created when the app is first run. This user will have the following credentials:
+// username: admin
+// password: admin123
+// email:
+// accessToken: a random string generated using the crypto library
+
+// The admin user will be used to create other users and perform other administrative tasks in the application.
+export const userSchema = new Schema(
   {
     // Define the 'username' field with a String data type
     username: {
