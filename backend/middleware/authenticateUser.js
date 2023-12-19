@@ -1,7 +1,5 @@
 import { UserModel } from "../models/UserModel";
-import asyncHandler from "express-async-handler";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+
 
 
 export const authenticateUser = async (req, res, next) => {

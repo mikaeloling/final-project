@@ -47,4 +47,4 @@ const cafeSchema = new Schema (
     }
   });
 
-export const CafeModel = mongoose.model("Cafe", cafeSchema)
+export const CafeModel = mongoose.model("Cafe", cafeSchema, "cafeList")

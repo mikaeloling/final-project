@@ -1,17 +1,17 @@
-import { cafeModel } from "../models/CafeModel";
+import { CafeModel } from '../models/CafeModel';
 import asyncHandler from "express-async-handler";
-import { UserModel } from "../models/UserModel";
+import UserModel from "../models/UserModel";
 
 
 
-export const getCafesController = asyncHandler(async (req, res) => {
+export const getCafesController = async (req, res) => {
   try {
-    const cafes = await cafeModel.find({});
+    const cafes = await CafeModel.find();
     res.json(cafes);
-  } catch (error) {
-    res.status(500).json(error);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
-} );
+};
 
 
 export const addCafeController = asyncHandler(async (req, res) => {
