@@ -2,6 +2,7 @@ import { UserModel } from "../models/UserModel";
 import asyncHandler from "express-async-handler";
 import bcrypt from "bcrypt";
 
+
 export const registerUserController = asyncHandler(async (req, res) => {
   const { username, password, email } = req.body;
   try {
