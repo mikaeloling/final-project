@@ -1,7 +1,5 @@
 import { UserModel } from "../models/UserModel";
 
-
-
 export const authenticateUser = async (req, res, next) => {
   const accessToken = req.header("Authorization");
   try {

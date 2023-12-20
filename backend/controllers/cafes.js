@@ -2,8 +2,6 @@ import { CafeModel } from '../models/CafeModel';
 import asyncHandler from "express-async-handler";
 import UserModel from "../models/UserModel";
 
-
-
 export const getCafesController = async (req, res) => {
   try {
     const cafes = await CafeModel.find();
