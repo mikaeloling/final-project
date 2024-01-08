@@ -84,6 +84,11 @@ const AdBanner = styled.div`
 const Home = () => {
   const [selectedCafe, setSelectedCafe] = useState(null);
   const mapRef = useRef();
+  const cafeRefs = useRef({});
+
+  const scrollToCafe = (index) => {
+    cafeRefs.current[index]?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   useEffect(() => {
     if (selectedCafe && mapRef.current) {
@@ -102,8 +107,9 @@ const Home = () => {
       <AdBanner>Ad Banner</AdBanner>
     </AdBannerContainer>
     <div ref={mapRef}> </div>
-    <Map selectedCafe={selectedCafe} setSelectedCafe={setSelectedCafe} />
-    <CafeList setSelectedCafe={setSelectedCafe} />
+    <Map selectedCafe={selectedCafe} setSelectedCafe={setSelectedCafe} scrollToCafe={scrollToCafe}
+    />
+    <CafeList setSelectedCafe={setSelectedCafe} cafeRefs={cafeRefs} />
     <AdBannerContainer>
     <AdBanner>Ad Banner</AdBanner>
     </AdBannerContainer>

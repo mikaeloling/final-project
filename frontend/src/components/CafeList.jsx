@@ -36,7 +36,7 @@ const StyledCafeItem = styled.div`
 `;
 
 
-const CafeList = ({setSelectedCafe }) => {
+const CafeList = ({setSelectedCafe, cafeRefs}) => {
   const [cafes, setCafes] = useState([]);
   
   useEffect(() => {
@@ -55,9 +55,8 @@ const CafeList = ({setSelectedCafe }) => {
     <>
     <div>
       <StyledCafeList>
-      {cafes.map((cafe) => (
-        
-          <StyledCafeItem key={cafe._id}>
+      {cafes.map((cafe, index) => (
+          <StyledCafeItem key={cafe._id} ref={el => cafeRefs.current[index] = el}>
               <h2>{cafe.name}</h2>
                 <p>Address: {cafe.address}</p>
                 <p>Opening hours: {cafe.hours}</p>

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 // import { set } from 'mongoose';
 
-const Map = ({ selectedCafe, setSelectedCafe  }) => {
+const Map = ({ selectedCafe, setSelectedCafe, scrollToCafe }) => {
   const [cafes, setCafes] = useState([]);
   const [selectedMarker , setSelectedMarker] = useState(null);
   const [showInfoWindow, setShowInfoWindow] = useState(false);
@@ -83,8 +83,11 @@ const Map = ({ selectedCafe, setSelectedCafe  }) => {
               <p>{selectedMarker.address}</p>
               <p>Opening hours: {selectedMarker.hours}</p>
               <a href = {selectedMarker.website}>Website</a>
-              
-            </div>
+              <button onClick={() => {
+                const index = cafes.findIndex(cafe => cafe._id === selectedCafe);
+                scrollToCafe(index);
+              }}>Back to List</button>
+        </div>
           </InfoWindow>
         )}
       </GoogleMap>
