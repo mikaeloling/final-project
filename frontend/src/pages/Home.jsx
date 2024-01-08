@@ -1,12 +1,38 @@
 import Map from '../components/Map';
 import CafeList from '../components/CafeList';
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
+
+// const HomeContainer = styled.div`
+//   align-items: center;
+//   justify-content: center;
+
+// `;
 
 const FlexContainer = styled.div`
   display: flex;
+  padding: 0px;
+  background-color: #f0f0f0;
+  color: #333;
   justify-content: center;
   align-items: center;
+ 
+
+  h1 {
+    font-size: 40px;
+    font-weight: 700;
+    margin-right: 10px;
+    
+  }
+  
+  p {
+    font-size: 20px;
+    font-weight: 400;
+    margin-left: 10px;
+   
+    
+  }
+
 `;
 const FlagLine = styled.hr`
   height: 10px;
@@ -14,38 +40,6 @@ const FlagLine = styled.hr`
   border: none;
 `;
 
-const TowerBanner = styled.div`
-  width: 400px;
-  height: 600px;
-  background: grey;
-  margin: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  text-align: center;
-`;
-
-const SquareBanner = styled.div`
-  width: 250px;
-  height: 250px;
-  background: grey;
-  margin: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  text-align: center;
-
- @media (max-width: 1024px) {
-    display: none;
-  }
-
-  @media (max-width: 768px) {
-   display: none;
-  }
-
-`;
 
 const AdBannerContainer = styled.div`
   display: flex;
@@ -68,28 +62,48 @@ const AdBanner = styled.div`
   align-items: center;
   justify-content: center;
   color: white;
+  transition: 0.3s ease;
+  &:hover {
+    transform: scale(1.05);
 `;
+
+// const TowerBanner = styled.div`
+//   width: 400px;
+//   height: 600px;
+//   background: grey;
+//   margin: 20px;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   color: white;
+//   text-align: center;
+//   position: relative;
+// `;
 
 
 const Home = () => {
   const [selectedCafe, setSelectedCafe] = useState(null);
+  const mapRef = useRef();
 
+  useEffect(() => {
+    if (selectedCafe && mapRef.current) {
+      mapRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [selectedCafe]);
+  
   return (
     <>
     <FlexContainer>
-    <h1>Tallinn Cafe List</h1>
-    </FlexContainer>
+    <h1>Tallinn´s Top Cafes</h1>
+      <p>Perfect Picks for Remote Professionals</p>
+      </FlexContainer>
       <FlagLine/>
-      <p>Find your favorite place for remote working</p>
     <AdBannerContainer>
       <AdBanner>Ad Banner</AdBanner>
     </AdBannerContainer>
-    <Map selectedCafe={selectedCafe} setSelectedCafe={setSelectedCafe}/>
-    <FlexContainer>
-    <TowerBanner>Ad Banner</TowerBanner>
-    <CafeList selectedCafe={selectedCafe} setSelectedCafe={setSelectedCafe}/>
-    <TowerBanner>Ad Banner</TowerBanner>
-    </FlexContainer>
+    <div ref={mapRef}> </div>
+    <Map selectedCafe={selectedCafe} setSelectedCafe={setSelectedCafe} />
+    <CafeList setSelectedCafe={setSelectedCafe} />
     <AdBannerContainer>
     <AdBanner>Ad Banner</AdBanner>
     </AdBannerContainer>

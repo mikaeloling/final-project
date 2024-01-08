@@ -1,24 +1,36 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
-
+// import { set } from 'mongoose';
 
 const Map = ({ selectedCafe, setSelectedCafe  }) => {
   const [cafes, setCafes] = useState([]);
   const [selectedMarker , setSelectedMarker] = useState(null);
+  const [showInfoWindow, setShowInfoWindow] = useState(false);
+
+  const mapRef = useRef(null);
 
   useEffect(() => {
-    // Fetch cafes from your API
+    // Fetch cafes from the API
     fetch('http://localhost:3000/cafes')
       .then(response => response.json())
       .then(data => {
-        console.log(data); // Log the data
         setCafes(data);
       });
   }, []);
 
+  useEffect(() => {
+    if (selectedCafe) {
+      const selected = cafes.find((cafe) => cafe._id === selectedCafe);
+      setSelectedMarker(selected);
+      setShowInfoWindow(true);
+    } else {
+      setShowInfoWindow(false);
+    }
+    }, [selectedCafe, cafes]);
+
   const mapStyles = {        
-    height: "70vh",
+    height: "60vh",
     width: "100%"
   };
   
@@ -28,6 +40,7 @@ const Map = ({ selectedCafe, setSelectedCafe  }) => {
   };
 
   return (
+    <div ref = {mapRef}> 
     <LoadScript googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
       <GoogleMap
         mapContainerStyle={mapStyles}
@@ -35,35 +48,56 @@ const Map = ({ selectedCafe, setSelectedCafe  }) => {
         center={defaultCenter}
       >
         {cafes.map((cafe) => (
+          
           <Marker 
             key={cafe._id} 
             position={{ lat: cafe.lat, lng: cafe.lng }} 
             icon={cafe._id === selectedCafe ? "http://maps.google.com/mapfiles/ms/icons/green-dot.png" : "http://maps.google.com/mapfiles/ms/icons/red-dot.png"} 
-            onClick={() => setSelectedCafe(cafe._id)}
-          />
-        ))}
+            onClick={() => {
+              console.log("marker selected", cafe);
+              setSelectedCafe(cafe._id)
+              setSelectedMarker(cafes.find((cafe) => cafe._id === selectedCafe));
+              showInfoWindow ? setShowInfoWindow(false) :
+              setShowInfoWindow(true);
 
-{selectedMarker && (
+              if (selectedMarker === cafe) {
+                setSelectedMarker(null);
+                setShowInfoWindow(false);
+               
+            } 
+            }
+            }
+          />
+
+        ))} 
+
+
+        {selectedMarker && (
+
           <InfoWindow
-            position={{ lat: selectedMarker.latitude, lng: selectedMarker.longitude }}
+            position={{ lat: selectedMarker.lat, lng: selectedMarker.lng }}
             onCloseClick={() => setSelectedMarker(null)}
           >
             <div>
               <h2>{selectedMarker.name}</h2>
               <p>{selectedMarker.address}</p>
-              {/* Add more details here */}
+              <p>Opening hours: {selectedMarker.hours}</p>
+              <a href = {selectedMarker.website}>Website</a>
+              
             </div>
           </InfoWindow>
         )}
-        
       </GoogleMap>
     </LoadScript>
+    </div>
   );
 };
 
 Map.propTypes = {
   selectedCafe: PropTypes.string,
-  setSelectedCafe: PropTypes.func.isRequired,
+  setSelectedCafe: PropTypes.func,
+  showInfoWindow: PropTypes.bool, 
+  setShowInfoWindow: PropTypes.func,
 };
 
 export default Map;
