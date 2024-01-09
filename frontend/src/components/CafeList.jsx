@@ -36,7 +36,7 @@ const StyledCafeItem = styled.div`
 `;
 
 
-const CafeList = ({setSelectedCafe, cafeRefs}) => {
+const CafeList = ({setSelectedCafe, cafeRefs }) => {
   const [cafes, setCafes] = useState([]);
   
   useEffect(() => {
@@ -76,6 +76,7 @@ CafeList.propTypes = {
   setSelectedCafe: PropTypes.func,
   showInfoWindow: PropTypes.bool,
   setShowInfoWindow: PropTypes.func,
+  cafeRefs: PropTypes.object,
 };
 
 export default CafeList;

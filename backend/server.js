@@ -1,4 +1,5 @@
 import express from "express"; 
+import bodyParser from "body-parser";
 import cors from "cors"; 
 import dotenv from "dotenv"; 
 dotenv.config(); 
@@ -17,7 +18,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(router); 
 
 
-app.use('/user', authenticateUser, userRoutes); 
 
 connectDB();
 

@@ -1,6 +1,11 @@
-import { CafeModel } from '../models/CafeModel';
+// import { CafeModel } from '../models/CafeModel';
 import asyncHandler from "express-async-handler";
 import UserModel from "../models/UserModel";
+
+const CafeModel = require('../models/CafeModel');
+
+// const Cafe = require('../models/Cafe');
+
 
 export const getCafesController = async (req, res) => {
   try {
@@ -14,24 +19,28 @@ export const getCafesController = async (req, res) => {
 
 export const addCafeController = asyncHandler(async (req, res) => {
     const {
-    name,
-    address,
-    city,
-    zip,
-    country,
-    website,
-    hours,
-    menu,
-    photos,
-    tags,
-  } = req.body;
+      name,
+      address,
+      city,
+      zip,
+      country,
+      website,
+      hours,
+      menu,
+      photos,
+      tags,
+      lat,
+      lng,
+      free_wifi,
+      coffee_refill_included,
+    } = req.body;
   
-  const accessToken = req.header("Authorization"); 
+  const accessToken = req.header("Authorization");
   const userFromStorage = await UserModel.findOne({
     accessToken: accessToken,
   });
 
-  const newCafe = await cafeModel.create({
+  const newCafe = await CafeModel.create({
     name,
     address,
     city,
@@ -42,6 +51,10 @@ export const addCafeController = asyncHandler(async (req, res) => {
     menu,
     photos,
     tags,
+    lat,
+    lng,
+    free_wifi,
+    coffee_refill_included,
     user: userFromStorage,
   });
   res.json(newCafe);
@@ -49,7 +62,7 @@ export const addCafeController = asyncHandler(async (req, res) => {
 
 export const getSpecificCafeController = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  await cafeModel.findById(id)
+  await CafeModel.findById(id)
     .then((result) => {
       if (result) {
         res.json(result); 
@@ -70,7 +83,7 @@ export const updateCafeController = asyncHandler(async (req, res) => {
   const userFromStorage = await UserModel.findOne({
     accessToken: accessToken,
   });
-  await cafeModel.findByIdAndUpdate(
+  await CafeModel.findByIdAndUpdate(
     { _id: id },
     { done: true },
     { user: userFromStorage }
@@ -85,7 +98,7 @@ export const deleteAllcafesController = asyncHandler(async (req, res) => {
   const userFromStorage = await UserModel.findOne({
     accessToken: accessToken,
   });
-  await cafeModel.deleteMany({ user: userFromStorage })
+  await CafeModel.deleteMany({ user: userFromStorage })
     .then((result) =>
       res.json({
         message: "All cafes deleted",
@@ -98,7 +111,7 @@ export const deleteAllcafesController = asyncHandler(async (req, res) => {
 export const deleteCafeController = asyncHandler(async (req, res) => {
   
   const { id } = req.params;
-  await cafeModel.findByIdAndDelete(id)
+  await CafeModel.findByIdAndDelete(id)
     .then((result) => {
       if (result) {
         res.json(result); 
@@ -110,4 +123,11 @@ export const deleteCafeController = asyncHandler(async (req, res) => {
     .catch((err) => res.status(500).json(err)); 
 });
 
-
+export default {
+  getCafesController,
+  addCafeController,
+  getSpecificCafeController,
+  updateCafeController,
+  deleteAllcafesController,
+  deleteCafeController,
+};

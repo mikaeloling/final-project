@@ -1,23 +1,21 @@
 import express from "express";
-import { get } from "mongoose";
-import { getCafesController } from "../controllers/cafes";
+// import { get } from "mongoose";
+import { getCafesController, getCafeByIdController, addCafeController, updateCafeController, deleteCafeController } from "../controllers/cafes";
+import authenticateUser from "../middleware/authenticateUser";
 
-// const getCafeController = require('../controllers/cafes'); 
 
 const router = express.Router();
 
 router.get("/",
   (req, res) => {
-    res.send("Welcome to the Cafe API!");
+    res.json({ message: "Welcome to the Coffee API!" });
+
   }
 );
 
-router.get('/cafes', getCafesController);
-
-
-router.get("/cafes/:id");
-// router.post("/cafes", getCafeController.addCafeController);
-// router.put("/cafes/:id", getCafeController.updateCafeController);
-// router.delete("/cafes/:id", getCafeController.deleteCafeController);
+router.get("/cafes", getCafesController);
+router.post("/cafes", authenticateUser, addCafeController);
+router.put("/cafes/:id", authenticateUser, updateCafeController);
+router.delete("/cafes/:id", authenticateUser, deleteCafeController);
 
 export default router;

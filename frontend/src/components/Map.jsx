@@ -101,6 +101,7 @@ Map.propTypes = {
   setSelectedCafe: PropTypes.func,
   showInfoWindow: PropTypes.bool, 
   setShowInfoWindow: PropTypes.func,
+  scrollToCafe: PropTypes.func,
 };
 
 export default Map;

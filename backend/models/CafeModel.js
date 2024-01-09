@@ -1,7 +1,7 @@
-import mongoose from "mongoose";
-const { Schema } = mongoose;
+const mongoose = require("mongoose");
 
-const cafeSchema = new Schema ({
+const cafeSchema = new mongoose.Schema({
+
   _id: {
     type: String,
     required: true,
@@ -64,4 +64,7 @@ const cafeSchema = new Schema ({
   }
 });
 
-export const CafeModel = mongoose.model("Cafe", cafeSchema, "cafeList")
+// export const CafeModel = mongoose.model("Cafe", cafeSchema, "cafeList")
+
+const CafeModel = mongoose.model("Cafe", cafeSchema, "cafeList");
+module.exports = CafeModel;
