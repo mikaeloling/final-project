@@ -2,10 +2,6 @@ const mongoose = require("mongoose");
 
 const cafeSchema = new mongoose.Schema({
 
-  _id: {
-    type: String,
-    required: true,
-  },
   name: {
     type: String,
     required: true,
@@ -63,8 +59,6 @@ const cafeSchema = new mongoose.Schema({
     required: false,
   }
 });
-
-// export const CafeModel = mongoose.model("Cafe", cafeSchema, "cafeList")
 
 const CafeModel = mongoose.model("Cafe", cafeSchema, "cafeList");
 module.exports = CafeModel;

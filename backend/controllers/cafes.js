@@ -1,11 +1,7 @@
-// import { CafeModel } from '../models/CafeModel';
 import asyncHandler from "express-async-handler";
 import UserModel from "../models/UserModel";
 
 const CafeModel = require('../models/CafeModel');
-
-// const Cafe = require('../models/Cafe');
-
 
 export const getCafesController = async (req, res) => {
   try {
@@ -15,6 +11,23 @@ export const getCafesController = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
+export const getCafeByIdController = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  await CafeModel.findById(id)
+
+    .then((result) => {
+      if (result) {
+        res.json(result); 
+      }
+      else {
+        res.status(404).json({ message: "cafe not found" }); 
+      }
+    }
+    )
+    .catch((err) => res.status(500).json(err));
+});
+
 
 
 export const addCafeController = asyncHandler(async (req, res) => {
@@ -125,6 +138,7 @@ export const deleteCafeController = asyncHandler(async (req, res) => {
 
 export default {
   getCafesController,
+  getCafeByIdController,
   addCafeController,
   getSpecificCafeController,
   updateCafeController,

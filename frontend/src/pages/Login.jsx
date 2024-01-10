@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 
+
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -9,7 +10,7 @@ const Login = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post('/api/login', { username, password });
+      const response = await axios.post('/login', { username, password });
       // Handle response, such as saving the access token and redirecting the user
       console.log(response.data);
     } catch (error) {
