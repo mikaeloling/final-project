@@ -15,6 +15,7 @@
                 <h2>{selectedCafe.name}</h2>
                 <p>{selectedCafe.address}</p>
                 <a href = {selectedCafe.website}>Website</a>
+                <p>This is the infowindow in cafemarker component</p>
             </InfoWindow>
           )}
         </div>

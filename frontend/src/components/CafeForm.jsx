@@ -7,7 +7,7 @@ const CafeFormContainer = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 100%;
+   
 
     form {
 
@@ -15,20 +15,20 @@ const CafeFormContainer = styled.div`
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        width: 500px;
+        
     }
 
     label {
         align-self: flex-start;
-        font-size: 20px;
-        font-weight: 700;
+        font-size: 18px;
+        
         margin-right: 10px;
     }
 
     input {
 
         width: 100%;
-        height: 40px;
+        height: 20px;
         margin: 10px 0;
         padding: 10px;
         border-radius: 10px;

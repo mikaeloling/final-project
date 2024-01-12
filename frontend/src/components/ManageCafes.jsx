@@ -6,12 +6,10 @@ import PropTypes from 'prop-types';
 const ManageCafesContainer = styled.div`
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    margin: 20px 0;
-    height: 100%;
-    margin: 20px 0;
+   
+    
+    
+  
 
     h2 {
         font-size: 40px;

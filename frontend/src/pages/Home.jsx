@@ -1,45 +1,11 @@
 import Map from '../components/Map';
 import CafeList from '../components/CafeList';
+import NavBar from '../components/NavBar';
 import styled from 'styled-components';
 import { useState, useRef, useEffect } from 'react';
-
-// const HomeContainer = styled.div`
-//   align-items: center;
-//   justify-content: center;
-
-// `;
-
-const FlexContainer = styled.div`
-  display: flex;
-  padding: 0px;
-  background-color: #f0f0f0;
-  color: #333;
-  justify-content: center;
-  align-items: center;
- 
-
-  h1 {
-    font-size: 40px;
-    font-weight: 700;
-    margin-right: 10px;
-    
-  }
-  
-  p {
-    font-size: 20px;
-    font-weight: 400;
-    margin-left: 10px;
-   
-    
-  }
-
-`;
-const FlagLine = styled.hr`
-  height: 10px;
-  background: linear-gradient(to right, #0047AB 33.3%, #000000 33.3%, #000000 66.6%, #FFFFFF 66.6%);
-  border: none;
-`;
-
+import Modal from 'react-modal';
+import  { LoadScript } from '@react-google-maps/api';
+import PropTypes from 'prop-types';
 
 const AdBannerContainer = styled.div`
   display: flex;
@@ -47,11 +13,12 @@ const AdBannerContainer = styled.div`
   align-items: center;
   width: 100%;
   height: 100px;
-  margin: 20px 0;
+  background: #f0f0f0;
 
-  @media (min-width: 1024px) {
-    display: none;
-  }
+
+  //make the adbannercontainer float at the bottom of any screen desktop/tablet/mobile (sticky footer)
+  position: fixed;
+  bottom: 0;
 `;
 
 const AdBanner = styled.div`
@@ -67,55 +34,112 @@ const AdBanner = styled.div`
     transform: scale(1.05);
 `;
 
-// const TowerBanner = styled.div`
-//   width: 400px;
-//   height: 600px;
-//   background: grey;
-//   margin: 20px;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   color: white;
-//   text-align: center;
-//   position: relative;
-// `;
-
-
 const Home = () => {
-  const [selectedCafe, setSelectedCafe] = useState(null);
-  const mapRef = useRef();
-  const cafeRefs = useRef({});
+  console.log('rendering Home')
 
-  const scrollToCafe = (index) => {
-    cafeRefs.current[index]?.scrollIntoView({ behavior: 'smooth' });
+ 
+  
+  const [selectedCafe, setSelectedCafe] = useState(null);
+  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
+  const [selectedMarker, setSelectedMarker] = useState(null);
+  const [showInfoWindow, setShowInfoWindow] = useState(true);
+  
+  const handleShowOnMap = (cafe) => {
+    console.log("selected Cafe for Map", cafe); 
+    setSelectedCafe(cafe);
+    setSelectedMarker(cafe);
+    setShowInfoWindow(true);
+    setIsMapModalOpen(true);
+
+  };
+  
+  // const setShowInfoWindow = (cafe) => {
+  //   setSelectedCafe(cafe);
+  //   setIsMapModalOpen(true);
+  // }
+
+  const closeMapModal = () => {
+    setIsMapModalOpen(false);
   };
 
-  useEffect(() => {
-    if (selectedCafe && mapRef.current) {
-      mapRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [selectedCafe]);
-  
+  const mapRef = useRef();
+  const cafeRefs = useRef({});
+ 
+  useEffect (() => {
+    Modal.setAppElement('body');
+
+  }
+  , []);
+
   return (
     <>
-    <FlexContainer>
-    <h1>Tallinn´s Top Cafes</h1>
-      <p>Perfect Picks for Remote Professionals</p>
-      </FlexContainer>
-      <FlagLine/>
-    <AdBannerContainer>
-      <AdBanner>Ad Banner</AdBanner>
-    </AdBannerContainer>
+    <LoadScript googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}> 
+    <NavBar/>
+
+    <Modal isOpen={isMapModalOpen} onRequestClose={closeMapModal}>
+    <button onClick={closeMapModal}>Close</button>
     <div ref={mapRef}> </div>
-    <Map selectedCafe={selectedCafe} setSelectedCafe={setSelectedCafe} scrollToCafe={scrollToCafe}
+    {selectedMarker && selectedCafe &&(
+      <div>
+        <h2>{selectedMarker.name}</h2>
+        <p>{selectedMarker.address}</p>
+        <p>Open: {selectedMarker.hours}</p>
+
+      </div>
+    )}
+    <Map 
+    // setSelectedMarker={setSelectedMarker}
+    selectedMarker={selectedMarker}
+    showInfoWindow={showInfoWindow} 
+    selectedCafe={selectedCafe} 
+    // setSelectedCafe={setSelectedCafe} 
+    // scrollToCafe={scrollToCafe}
+    // setShowInfoWindow={setShowInfoWindow}
     />
-    <CafeList setSelectedCafe={setSelectedCafe} cafeRefs={cafeRefs} />
-    <AdBannerContainer>
-    <AdBanner>Ad Banner</AdBanner>
-    </AdBannerContainer>
+    </Modal>
+    <CafeList
+    onShowOnMap={handleShowOnMap} 
+    selectedCafe= {selectedCafe}
+    selectedMarker= {selectedMarker}
+    showInfoWindow={showInfoWindow}
+    cafeRefs={cafeRefs} 
+    // setSelectedMarker={setSelectedMarker} 
+    // selectedMarker={selectedMarker?._id} 
+    // setShowInfoWindow={setShowInfoWindow} 
+    // showMap={showMap} 
+    
+    // setSelectedCafe={setSelectedCafe} 
+    />
+    {/* setSelectedCafe={setSelectedCafe} */}
+    {/* cafeRefs={cafeRefs} */}
+
+    
+
+    {/* <AdBannerContainer>
+    <AdBanner>PLACE YOUR AD HERE</AdBanner>
+    </AdBannerContainer> */}
+
+</LoadScript>
+    
     </>
   )
 }
+
+Home.propTypes = {
+  selectedCafe: PropTypes.object,
+  // setSelectedCafe: PropTypes.func,
+  showInfoWindow: PropTypes.bool,
+  // setShowInfoWindow: PropTypes.func,
+  cafeRefs: PropTypes.object,
+  showMap: PropTypes.func,
+  selectedMarker: PropTypes.object,
+  // setSelectedMarker: PropTypes.func,
+  handleShowOnMapClick: PropTypes.func,
+  handleMarkerClick: PropTypes.func,
+  onShowOnMap: PropTypes.func,
+  
+};
+
 
 export default Home;
   
