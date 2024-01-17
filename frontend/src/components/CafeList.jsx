@@ -22,9 +22,14 @@ const StyledCafeItem = styled.div`
   margin: 20px;
   padding: 20px 10px;
   justify-content: center;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+  box-shadow: 10px 10px 5px 5px rgba(0, 0, 0, 0.25);
   transition: 0.3s ease;
   border-radius: 10px;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+
   @media (max-width: 768px) {
     flex-direction: column;
   
@@ -40,6 +45,25 @@ const StyledCafeItem = styled.div`
     font-size: 16px;
     font-weight: 400;
     margin-bottom: 10px;
+  }
+
+  button {
+    width: 100%;
+    height: 50px;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px;
+   
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #333;
+      color: #fff;
+      transition: 0.7s ease;
+    }
   }
 
   img {

@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { AiFillTool } from 'react-icons/ai';
 
+
 const NavBarContainer = styled.div`
     display: flex;
     justify-content: space-between;
@@ -40,8 +41,8 @@ const Title = styled.div`
     
     
     h1 {
-        font-size: 30px;
-        font-weight: 700;
+        font-size: 25px;
+        font-weight: 550;
         margin: 0 20px;
         
         color: #000000;
@@ -71,7 +72,8 @@ export const NavBar = () => {
     <div>
     <NavBarContainer >
         <Title>
-        <h1>Cafélist Tallinn</h1>
+        <img src="/public/Tallinn cafelist new logo.png" alt="logo" width="50px" height="auto" />
+        <h1>Tallinn Cafélist</h1>
         </Title>
         <div>
         <MenuLinks>

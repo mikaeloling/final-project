@@ -7,7 +7,8 @@ const ManageCafesContainer = styled.div`
     display: flex;
     flex-direction: column;
    
-    
+    width: auto;
+    margin: 20px 0;
     
   
 

@@ -7,6 +7,27 @@ import Modal from 'react-modal';
 import  { LoadScript } from '@react-google-maps/api';
 import PropTypes from 'prop-types';
 
+const ModalContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  justify-content: center;
+  align-items: center;
+  
+  h2 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  p {
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: 10px;
+
+`;
+
+
 const AdBannerContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -75,26 +96,24 @@ const Home = () => {
     <>
     <LoadScript googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}> 
     <NavBar/>
-
+    
     <Modal isOpen={isMapModalOpen} onRequestClose={closeMapModal}>
     <button onClick={closeMapModal}>Close</button>
     <div ref={mapRef}> </div>
     {selectedMarker && selectedCafe &&(
-      <div>
-        <h2>{selectedMarker.name}</h2>
-        <p>{selectedMarker.address}</p>
-        <p>Open: {selectedMarker.hours}</p>
+      <ModalContainer>
+      
+        <h2><a href={selectedMarker?.website?.toString()}>{selectedMarker.name}</a></h2>
+        <p>Type of cafe: {selectedMarker.tags.join (', ')}</p>
+        <p>{selectedMarker.description}</p>
 
-      </div>
+      
+      </ModalContainer>
     )}
     <Map 
-    // setSelectedMarker={setSelectedMarker}
-    selectedMarker={selectedMarker}
-    showInfoWindow={showInfoWindow} 
-    selectedCafe={selectedCafe} 
-    // setSelectedCafe={setSelectedCafe} 
-    // scrollToCafe={scrollToCafe}
-    // setShowInfoWindow={setShowInfoWindow}
+    selectedMarker={selectedCafe}
+    showInfoWindow={showInfoWindow}
+    selectedCafe={selectedCafe}
     />
     </Modal>
     <CafeList
@@ -103,21 +122,11 @@ const Home = () => {
     selectedMarker= {selectedMarker}
     showInfoWindow={showInfoWindow}
     cafeRefs={cafeRefs} 
-    // setSelectedMarker={setSelectedMarker} 
-    // selectedMarker={selectedMarker?._id} 
-    // setShowInfoWindow={setShowInfoWindow} 
-    // showMap={showMap} 
     
-    // setSelectedCafe={setSelectedCafe} 
     />
-    {/* setSelectedCafe={setSelectedCafe} */}
-    {/* cafeRefs={cafeRefs} */}
-
-    
-
-    {/* <AdBannerContainer>
+    <AdBannerContainer>
     <AdBanner>PLACE YOUR AD HERE</AdBanner>
-    </AdBannerContainer> */}
+    </AdBannerContainer>
 
 </LoadScript>
     

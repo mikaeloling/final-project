@@ -22,6 +22,8 @@ const DashboardContainer = styled.div`
     font-weight: 400;
     margin-bottom: 10px;
   }
+
+  
 `;
 
 const AdminNavBar = () => {
