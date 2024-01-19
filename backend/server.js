@@ -13,6 +13,8 @@ import { connectDB } from "./config/db";
 const port = process.env.PORT || 3000;
 const app = express(); 
 
+const mongoose = require('mongoose');
+
 mongoose.connect(process.env.MONGO_URL);
 
 app.use(cors());
