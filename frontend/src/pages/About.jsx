@@ -1,6 +1,6 @@
 import NavBar from '../components/NavBar'
 import styled from 'styled-components'
-import Lottie from 'react-lottie';
+// import Lottie from 'react-lottie';
 import animationData from '/Users/mikaeloling/Desktop/Code/final-project/frontend/public/Animation - 1704915794567.json';
 
 const defaultOptions = {
@@ -79,9 +79,9 @@ export const AboutCafeMap = () => {
         <NavBar />
         <AboutContainer>
         <AboutSection>
-        <LottieContainer>
+        {/* <LottieContainer>
         <Lottie options={defaultOptions} height={100} width={200} />
-        </LottieContainer>
+        </LottieContainer> */}
 
                 <AboutHeading><h1>About</h1> </AboutHeading>
                 <AboutText>
