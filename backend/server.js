@@ -1,6 +1,5 @@
 import express from "express"; 
 import cors from "cors"; 
-import mongoose from "mongoose";
 import dotenv from "dotenv"; 
 dotenv.config(); 
 import cafeRouter from "./routes/cafeRoutes"; 
@@ -12,10 +11,7 @@ import { connectDB } from "./config/db";
 
 const port = process.env.PORT || 3000;
 const app = express(); 
-
 const mongoose = require('mongoose');
-
-mongoose.connect(process.env.MONGO_URL);
 
 app.use(cors());
 app.use(express.json()); 
