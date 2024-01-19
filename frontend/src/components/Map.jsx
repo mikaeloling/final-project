@@ -1,35 +1,44 @@
 import { GoogleMap, Marker, InfoWindow } from '@react-google-maps/api';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
-const mapStyles = {        
-  height: "60vh",
-  width: "100%"
+const mapStyles = {   
 };
 
-
-
 const MapContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  padding: 0px;
-
-  
+  padding: 10px 10px;
+  height: 100%;
+  }
 `;
-
-
-const CafeImg = styled.div`
-  
-  display: flex;  
-  justify-content: center;
-  align-items: center;
-  width: 400px
-  height: 400px;
+const CafeImg = styled.div` 
   img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: cover;  
   }
-  
+`;
+const MapandImg = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+  height: 100%;
+
+  @media (max-width: 1024px) {
+    display: grid;
+    grid-template-columns: 1fr;
+    height: 130%;
+    
+    grid-gap: 10px;
+
+    & > div:last-child {
+      order: 1;
+    
+    }
+
+    & > div:first-child {
+      order: 2;
+    }
+  }
 `;
 
 const Infotext = styled.div`
@@ -50,21 +59,18 @@ const Infotext = styled.div`
   p {
     font-weight: 400;
   }
-
-  
 `;
-
 
 const defaultCenter = {
   lat: 59.436962, lng: 24.753574
 };
 
-const Map = ({ selectedCafe, showInfoWindow }) => { // Destructure props here
-  // Removed the fetching of cafes as it's not used in the current scope of the component
+const Map = ({ selectedCafe, showInfoWindow }) => { 
 
   return (
     <>
     <MapContainer>
+    <MapandImg>
     <CafeImg>
       <img src={selectedCafe.photos[0]} alt={selectedCafe.name} />
     </CafeImg>
@@ -82,6 +88,8 @@ const Map = ({ selectedCafe, showInfoWindow }) => { // Destructure props here
           position={{ lat: selectedCafe.lat, lng: selectedCafe.lng }}
           onCloseClick={() => {/* Functionality to close InfoWindow */}}
         >
+
+          
           <Infotext>
             <h2>{selectedCafe.name}</h2>
             <p>{selectedCafe.address}</p>
@@ -91,12 +99,16 @@ const Map = ({ selectedCafe, showInfoWindow }) => { // Destructure props here
         </InfoWindow>
       )}
     </GoogleMap>
-    
+    </MapandImg>
     </MapContainer>
+   
     </>
   );
 };
 
-
+Map.propTypes = {
+  selectedCafe: PropTypes.object,
+  showInfoWindow: PropTypes.bool,
+};
 
 export default Map;

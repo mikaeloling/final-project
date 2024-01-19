@@ -25,7 +25,9 @@ const StyledCafeItem = styled.div`
   box-shadow: 10px 10px 5px 5px rgba(0, 0, 0, 0.25);
   transition: 0.3s ease;
   border-radius: 10px;
-
+  &:last-child {
+    margin-bottom: 120px;
+  }
   &:hover {
     transform: scale(1.02);
   }
@@ -53,7 +55,6 @@ const StyledCafeItem = styled.div`
     margin: 10px 0;
     padding: 10px;
     border-radius: 10px;
-    border: 1px;
    
     font-size: 20px;
     font-weight: 500;
@@ -63,6 +64,7 @@ const StyledCafeItem = styled.div`
       background-color: #333;
       color: #fff;
       transition: 0.7s ease;
+   
     }
   }
 
@@ -76,9 +78,7 @@ const StyledCafeItem = styled.div`
       
       margin-left: 0;
       margin-top: 20px;
-    }
-    
-    
+    }  
   }
 `;
 

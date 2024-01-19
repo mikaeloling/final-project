@@ -3,53 +3,45 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 const CafeFormContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-   
+    height: 50%;
+    padding-bottom: 50px;
 
     form {
-
-        display: flex;
-        flex-direction: column;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
         align-items: center;
-        justify-content: center;
-        
+        justify-items: start;
+        padding: 60px;
     }
-
     label {
+        grid-column: 1 / 2;
+        font-size: 20px;
         align-self: flex-start;
-        font-size: 18px;
-        
-        margin-right: 10px;
     }
-
     input {
-
+        grid-column: 2 / 3;
         width: 100%;
         height: 20px;
-        margin: 10px 0;
         padding: 10px;
         border-radius: 10px;
         border: 1px solid #333;
+        margin-bottom: 10px;  
     }
-
     button {
-
+        grid-column: 1 / 3;
         width: 100%;
-        height: 40px;
-        margin: 10px 0;
+        height: 50px;
         padding: 10px;
         border-radius: 10px;
         border: 1px solid #333;
-        background-color: #333;
+        background: #333;
         color: #fff;
         font-size: 20px;
-        font-weight: 700;
+        font-weight: 500;
+        margin-top: 10px;
         cursor: pointer;
     }
-
 `;
 
 const CafeForm = ({ onSubmit, initialCafeData }) => {
@@ -90,8 +82,6 @@ const CafeForm = ({ onSubmit, initialCafeData }) => {
     onSubmit && onSubmit(cafe);
 
   };
-
-
 
   return (
     <CafeFormContainer>
@@ -203,7 +193,6 @@ const CafeForm = ({ onSubmit, initialCafeData }) => {
 
   );
 };
-
 
 CafeForm.propTypes = {
 

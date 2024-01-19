@@ -4,13 +4,10 @@ import PropTypes from 'prop-types';
 // import axios from 'axios';
 
 const ManageCafesContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-   
-    width: auto;
+    display: grid;
+    grid-template-columns: 
+    width: 100%;
     margin: 20px 0;
-    
-  
 
     h2 {
         font-size: 40px;

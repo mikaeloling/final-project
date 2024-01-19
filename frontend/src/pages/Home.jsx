@@ -4,13 +4,12 @@ import NavBar from '../components/NavBar';
 import styled from 'styled-components';
 import { useState, useRef, useEffect } from 'react';
 import Modal from 'react-modal';
-import  { LoadScript } from '@react-google-maps/api';
 import PropTypes from 'prop-types';
 
 const ModalContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 30px;
+  padding: 40px;
   justify-content: center;
   align-items: center;
   
@@ -27,33 +26,6 @@ const ModalContainer = styled.div`
 
 `;
 
-
-const AdBannerContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100px;
-  background: #f0f0f0;
-
-
-  //make the adbannercontainer float at the bottom of any screen desktop/tablet/mobile (sticky footer)
-  position: fixed;
-  bottom: 0;
-`;
-
-const AdBanner = styled.div`
-  width: 728px;
-  height: 90px;
-  background: grey;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  transition: 0.3s ease;
-  &:hover {
-    transform: scale(1.05);
-`;
 
 const Home = () => {
   console.log('rendering Home')
@@ -74,10 +46,6 @@ const Home = () => {
 
   };
   
-  // const setShowInfoWindow = (cafe) => {
-  //   setSelectedCafe(cafe);
-  //   setIsMapModalOpen(true);
-  // }
 
   const closeMapModal = () => {
     setIsMapModalOpen(false);
@@ -94,7 +62,6 @@ const Home = () => {
 
   return (
     <>
-    <LoadScript googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}> 
     <NavBar/>
     
     <Modal isOpen={isMapModalOpen} onRequestClose={closeMapModal}>
@@ -124,25 +91,19 @@ const Home = () => {
     cafeRefs={cafeRefs} 
     
     />
-    <AdBannerContainer>
-    <AdBanner>PLACE YOUR AD HERE</AdBanner>
-    </AdBannerContainer>
+   
 
-</LoadScript>
-    
+
     </>
   )
 }
 
 Home.propTypes = {
   selectedCafe: PropTypes.object,
-  // setSelectedCafe: PropTypes.func,
   showInfoWindow: PropTypes.bool,
-  // setShowInfoWindow: PropTypes.func,
   cafeRefs: PropTypes.object,
   showMap: PropTypes.func,
   selectedMarker: PropTypes.object,
-  // setSelectedMarker: PropTypes.func,
   handleShowOnMapClick: PropTypes.func,
   handleMarkerClick: PropTypes.func,
   onShowOnMap: PropTypes.func,
