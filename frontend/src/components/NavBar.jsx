@@ -72,7 +72,7 @@ export const NavBar = () => {
     <div>
     <NavBarContainer >
         <Title>
-        <img src="/public/Tallinn cafelist new logo.png" alt="logo" width="50px" height="auto" />
+        <img src="/Tallinn cafelist new logo.png" alt="logo" width="50px" height="auto" />
         <h1>Tallinn Cafélist</h1>
         </Title>
         <div>
