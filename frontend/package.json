@@ -23,6 +23,7 @@
     "react-lottie": "^1.2.4",
     "react-modal": "^3.16.1",
     "react-router-dom": "^6.15.0",
+    "styled-components": "^6.1.8",
     "zustand": "^4.4.6"
   },
   "devDependencies": {
