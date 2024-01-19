@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+const API_URL = 'https://final-project-backend-jos4.onrender.com';
 
 const StyledCafeList = styled.div`
   display: flex;
@@ -85,8 +86,10 @@ const StyledCafeItem = styled.div`
 const CafeList = ({ onShowOnMap, cafeRefs }) => {
   const [cafes, setCafes] = useState([]);
   
+
   useEffect(() => {
-    fetch('http://localhost:3000/cafes')
+  
+    fetch (`${API_URL}/cafes`)
       .then(response => response.json())
       .then(data => {
         setCafes(data);
