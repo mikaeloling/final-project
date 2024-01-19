@@ -1,25 +1,7 @@
 import NavBar from '../components/NavBar'
 import styled from 'styled-components'
-// import Lottie from 'react-lottie';
-import animationData from '/Users/mikaeloling/Desktop/Code/final-project/frontend/public/Animation - 1704915794567.json';
 
-const defaultOptions = {
-    loop: true,
-    autoplay: true, 
-    animationData: animationData,
-    rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice'
-    }
-  };
 
-  const LottieContainer = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-    margin: 20px 0;
-
-`;
 
 
 
@@ -79,9 +61,7 @@ export const AboutCafeMap = () => {
         <NavBar />
         <AboutContainer>
         <AboutSection>
-        {/* <LottieContainer>
-        <Lottie options={defaultOptions} height={100} width={200} />
-        </LottieContainer> */}
+       
 
                 <AboutHeading><h1>About</h1> </AboutHeading>
                 <AboutText>
